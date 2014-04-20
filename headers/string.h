@@ -13,8 +13,13 @@ void * memset(void * ptr, int value, size_t num);
 int strncmp(const char * str1, const char * str2, size_t num);
 
 #ifdef __cplusplus
+
 const char * strchr(const char * str, int character);
 char * strchr(char * str, int character);
+
+const char * strstr(const char * str1, const char * str2);
+char * strstr(char * str1, const char * str2);
+
 #endif
 
 #endif

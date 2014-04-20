@@ -32,6 +32,9 @@
 #if V8_OS_WIN
 #include "win32-headers.h"
 #endif
+#if V8_OS_SA
+#include <v8sa/socket.h>
+#endif
 
 namespace v8 {
 namespace internal {
@@ -79,6 +82,9 @@ class Socket V8_FINAL {
 #elif V8_OS_WIN
   typedef SOCKET NativeHandle;
   static const NativeHandle kInvalidNativeHandle = INVALID_SOCKET;
+#elif V8_OS_SA
+  typedef v8sa::Socket NativeHandle; 
+  static const NativeHandle kInvalidNativeHandle = 0;
 #endif
 
   NativeHandle& native_handle() {
