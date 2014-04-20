@@ -1,0 +1,67 @@
+#ifndef __V8SA_STRING_HPP__
+#define __V8SA_STRING_HPP__
+
+#include <stdint.h>
+#include <memory>
+
+#ifndef char16_t
+typedef uint16_t char16_t;
+#endif
+#ifndef char32_t
+typedef uint32_t char32_t;
+#endif
+
+namespace std {
+
+template <class CharT>
+struct char_traits {
+  typedef ssize_t off_type;
+  typedef ssize_t pos_type;
+};
+
+template <>
+struct char_traits<char> {
+  typedef char char_type;
+  typedef int int_type;
+};
+
+template <>
+struct char_traits<wchar_t> {
+  typedef wchar_t char_type;
+  typedef int int_type;
+};
+
+template <>
+struct char_traits<char16_t> {
+  typedef char16_t char_type;
+  typedef int32_t int_type;
+};
+
+template <>
+struct char_traits<char32_t> {
+  typedef char32_t char_type;
+  typedef int64_t int_type;
+};
+
+template <class CharT,
+          class Traits = char_traits<CharT>,
+          class Allocator = allocator<CharT> >
+class basic_string {
+public:
+  typedef Traits traits_type;
+  typedef Allocator allocator_type;
+  typedef typename traits_type::char_type value_type;
+  typedef typename allocator_traits<allocator_type>::difference_type size_type;
+  
+  const value_type * data() const;
+  size_type size() const;
+};
+
+typedef basic_string<char> string;
+typedef basic_string<wchar_t> wstring;
+typedef basic_string<char16_t> u16string;
+typedef basic_string<char32_t> u32string;
+
+}
+
+#endif

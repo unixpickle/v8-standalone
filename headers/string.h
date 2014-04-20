@@ -21,6 +21,9 @@ char * strchr(char * str, int character);
 const char * strstr(const char * str1, const char * str2);
 char * strstr(char * str1, const char * str2);
 
+const void * memchr(const void * ptr, int value, size_t num);
+void * memchr(void * ptr, int value, size_t num);
+
 #endif
 
 #endif

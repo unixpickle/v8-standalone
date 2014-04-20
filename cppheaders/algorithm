@@ -4,10 +4,12 @@
 namespace std {
 
 template <class RandomAccessIterator>
-void sort (RandomAccessIterator first, RandomAccessIterator last);
+void sort (RandomAccessIterator first, RandomAccessIterator last) {
+}
 
 template <class RandomAccessIterator, class Compare>
-void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
+void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp) {
+}
 
 }
 

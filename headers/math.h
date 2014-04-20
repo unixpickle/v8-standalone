@@ -25,6 +25,10 @@
 #define FP_NORMAL       4
 #define FP_SUBNORMAL    5
 
+/**
+ * Some math functions that V8 uses
+ */
+
 long int lrint(double x);
 long int lrintf(float x);
 long int lrintl(long double x);
@@ -32,5 +36,11 @@ long int lrintl(long double x);
 long long int llrint(double x);
 long long int llrintf(float x);
 long long int llrintl(long double x);
+
+#ifdef __cplusplus
+int abs(int n);
+#else
+int abs(int n);
+#endif
 
 #endif

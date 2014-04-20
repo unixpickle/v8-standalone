@@ -37,6 +37,11 @@ public:
   };
 };
 
+template <class Alloc>
+struct allocator_traits {
+  typedef ssize_t difference_type;
+};
+
 }
 
 #endif
