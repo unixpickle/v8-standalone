@@ -1,6 +1,6 @@
 CURDIR = $(shell pwd)
-INCLUDES += $(CURDIR)/headers $(CURDIR)/cppheaders
-CCFLAGS += -Wall -ffreestanding -fno-builtin -fno-stack-protector -fno-zero-initialized-in-bss -nostdinc -U __APPLE__ -U __linux__
+INCLUDES += $(CURDIR)/headers $(CURDIR)/cppheaders $(CURDIR)/plugin
+CCFLAGS += -Wall -ffreestanding -fno-exceptions -fno-builtin -fno-stack-protector -fno-zero-initialized-in-bss -nostdinc -U __APPLE__ -U __linux__ -D __v8sa__
 CCFLAGS += $(shell echo $(INCLUDES) | sed -e 's/\([^ ]*\)/"-I\1"/g')
 
 all:

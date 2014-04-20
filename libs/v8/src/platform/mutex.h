@@ -35,6 +35,8 @@
 
 #if V8_OS_POSIX
 #include <pthread.h>  // NOLINT
+#elif V8_OS_SA
+#include <v8sa/mutex.h>
 #endif
 
 namespace v8 {
@@ -79,6 +81,8 @@ class Mutex V8_FINAL {
   typedef pthread_mutex_t NativeHandle;
 #elif V8_OS_WIN
   typedef CRITICAL_SECTION NativeHandle;
+#elif V8_OS_SA
+  typedef v8sa::Mutex NativeHandle;
 #endif
 
   NativeHandle& native_handle() {

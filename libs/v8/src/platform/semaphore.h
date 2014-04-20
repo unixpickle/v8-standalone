@@ -37,6 +37,8 @@
 #include <mach/semaphore.h>  // NOLINT
 #elif V8_OS_POSIX
 #include <semaphore.h>  // NOLINT
+#elif V8_OS_SA
+#include <v8sa/semaphore.h>
 #endif
 
 namespace v8 {
@@ -78,6 +80,8 @@ class Semaphore V8_FINAL {
   typedef sem_t NativeHandle;
 #elif V8_OS_WIN
   typedef HANDLE NativeHandle;
+#elif V8_OS_SA
+  typedef v8sa::Semaphore NativeHandle;
 #endif
 
   NativeHandle& native_handle() {

@@ -133,6 +133,8 @@
 # define V8_OS_QNX 1
 #elif defined(_WIN32)
 # define V8_OS_WIN 1
+#elif defined(__v8sa__)
+# define V8_OS_SA 1
 #endif
 
 

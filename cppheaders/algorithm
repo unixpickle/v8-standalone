@@ -1,0 +1,14 @@
+#ifndef __V8SA_ALGORITHM_HPP__
+#define __V8SA_ALGORITHM_HPP__
+
+namespace std {
+
+template <class RandomAccessIterator>
+void sort (RandomAccessIterator first, RandomAccessIterator last);
+
+template <class RandomAccessIterator, class Compare>
+void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
+
+}
+
+#endif

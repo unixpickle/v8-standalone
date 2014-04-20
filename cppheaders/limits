@@ -1,4 +1,22 @@
 #ifndef __V8SA_LIMITS_HPP__
 #define __V8SA_LIMITS_HPP__
 
+#include <stdint.h>
+
+namespace std {
+
+template <class T> class numeric_limits {
+public:
+  static T min();
+  static T max();
+};
+
+template <>
+class numeric_limits<uint64_t> {
+  static uint64_t min() { return 0; }
+  static uint64_t max() { return UINT64_MAX; }
+};
+
+}
+
 #endif
