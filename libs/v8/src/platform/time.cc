@@ -32,6 +32,8 @@
 #endif
 #if V8_OS_MACOSX
 #include <mach/mach_time.h>
+#elif V8_OS_SA
+#include <v8sa/time.h>
 #endif
 
 #include <string.h>
@@ -559,6 +561,8 @@ TimeTicks TimeTicks::HighResolutionNow() {
            info.numer / info.denom);
 #elif V8_OS_SOLARIS
   ticks = (gethrtime() / Time::kNanosecondsPerMicrosecond);
+#elif V8_OS_SA
+  ticks = v8sa::microTime();
 #elif V8_LIBRT_NOT_AVAILABLE
   // TODO(bmeurer): This is a temporary hack to support cross-compiling
   // Chrome for Android in AOSP. Remove this once AOSP is fixed, also

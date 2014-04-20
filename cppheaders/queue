@@ -1,6 +1,26 @@
 #ifndef __V8SA_QUEUE_HPP__
 #define __V8SA_QUEUE_HPP__
 
+#include <deque>
 
+namespace std {
+
+template <class T, class Container = deque<T> >
+class queue {
+public:
+  typedef T value_type;
+  typedef Container container_type;
+  typedef typename container_type::reference reference;
+  typedef typename container_type::const_reference const_reference;
+  typedef ssize_t size_type;
+
+  bool empty() const;
+  void pop();
+  void push(const value_type & val);
+  reference & front();
+  const_reference & front() const;
+};
+
+}
 
 #endif

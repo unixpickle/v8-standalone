@@ -49,6 +49,10 @@ float fmodf(float number, float denom);
 double fmod(double number, double denom);
 long double fmodl(long double number, long double denom);
 
+float sqrt(float x);
+double sqrt(double x);
+long double sqrt(long double x);
+
 }
 
 #endif

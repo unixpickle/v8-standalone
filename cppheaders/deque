@@ -1,12 +1,13 @@
-#ifndef __V8SA_VECTOR_HPP__
-#define __V8SA_VECTOR_HPP__
+#ifndef __V8SA_DEQUE_H__
+#define __V8SA_DEQUE_H__
 
 #include <memory>
+#include <iterator>
 
 namespace std {
 
 template <class T, class Alloc = allocator<T> >
-class vector {
+class deque {
 public:
   typedef T value_type;
   typedef Alloc allocator_type;
@@ -14,13 +15,8 @@ public:
   typedef const value_type & const_reference;
   typedef value_type * iterator;
   typedef const value_type * const_iterator;
-  
-  iterator begin();
-  const_iterator begin() const;
-  iterator end();
-  const_iterator end() const;
-  
-  void push_back(const value_type & val);
+  typedef typename iterator_traits<value_type *>::difference_type
+    difference_type;
 };
 
 }

@@ -29,6 +29,8 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#elif V8_OS_SA
+#include <v8sa/funcs.h>
 #else
 #include <sched.h>
 #endif
@@ -66,6 +68,8 @@ void CallOnceImpl(OnceType* once, PointerArgFunction init_func, void* arg) {
     while (state == ONCE_STATE_EXECUTING_FUNCTION) {
 #ifdef _WIN32
       ::Sleep(0);
+#elif V8_OS_SA
+      v8sa::yield();
 #else
       sched_yield();
 #endif
