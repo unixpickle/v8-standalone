@@ -1,4 +1,34 @@
 #ifndef __V8SA_CMATH_HPP__
 #define __V8SA_CMATH_HPP__
 
+extern "C" {
+
+#include <math.h>
+
+}
+
+namespace std {
+
+bool isnan(float arg);
+bool isnan(double arg);
+bool isnan(long double arg);
+
+bool isfinite(float arg);
+bool isfinite(double arg);
+bool isfinite(long double arg);
+
+float floor(float x);
+double floor(double x);
+long double floor(long double x);
+
+float ceil(float x);
+double ceil(double x);
+long double ceil(long double x);
+
+float ldexp(float x, int exp);
+double ldexp(double x, int exp);
+long double ldexp(long double x, int exp);
+
+}
+
 #endif

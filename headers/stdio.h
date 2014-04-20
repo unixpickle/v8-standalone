@@ -6,8 +6,8 @@
 typedef struct {
 } FILE;
 
-static FILE * stdout = NULL;
-static FILE * stdin = NULL;
+FILE * stdout = NULL;
+FILE * stdin = NULL;
 
 void printf(const char * fmt, ...);
 void fclose(FILE * fp);
