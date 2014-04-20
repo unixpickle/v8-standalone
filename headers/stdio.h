@@ -9,4 +9,6 @@ typedef struct {
 static FILE * stdout = NULL;
 static FILE * stdin = NULL;
 
+void printf(const char * fmt, ...);
+
 #endif
