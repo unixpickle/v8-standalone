@@ -12,7 +12,15 @@ public:
 };
 
 template <>
+class numeric_limits<uint32_t> {
+public:
+  static uint32_t min() { return 0; }
+  static uint32_t max() { return UINT32_MAX; }
+};
+
+template <>
 class numeric_limits<uint64_t> {
+public:
   static uint64_t min() { return 0; }
   static uint64_t max() { return UINT64_MAX; }
 };

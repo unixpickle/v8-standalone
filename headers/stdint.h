@@ -1,10 +1,12 @@
 #ifndef __V8SA_STDINT_H__
 #define __V8SA_STDINT_H__
 
+// TODO: make this work on 32-bit systems...screw that though
+
 typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;
 typedef unsigned int uint32_t;
-typedef unsigned long long uint64_t;
+typedef unsigned long uint64_t;
 
 typedef char int8_t;
 typedef short int16_t;
