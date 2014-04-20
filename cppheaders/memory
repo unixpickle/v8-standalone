@@ -1,0 +1,42 @@
+#ifndef __V8SA_MEMORY_HPP__
+#define __V8SA_MEMORY_HPP__
+
+#include <new>
+
+namespace std {
+
+template <class T>
+class allocator {
+public:
+  typedef T & reference;
+  typedef const T & const_reference;
+  typedef T * pointer;
+  typedef const T * const_pointer;
+  typedef size_t size_type;
+  typedef T value_type;
+  
+  allocator();
+  ~allocator();
+  pointer address(reference x);
+  const_pointer address(const_reference x);
+  pointer allocate(size_type n, void * hint = 0);
+  void deallocate(pointer p, size_type n);
+  size_type max_size() const;
+  void construct(pointer p, const_reference val);
+  void destroy(pointer p);
+};
+
+template <>
+class allocator<void> {
+public:
+  typedef void * pointer;
+  typedef const void * const_pointer;
+  typedef void value_type;
+  template <class U> struct rebind {
+    typedef allocator<U> other;
+  };
+};
+
+}
+
+#endif

@@ -1,0 +1,22 @@
+#ifndef __V8SA_FUNCTIONAL_HPP__
+#define __V8SA_FUNCTIONAL_HPP__
+
+namespace std {
+
+template <class T1, class T2, class R>
+struct binary_function {
+  typedef T1 first_argument_type;
+  typedef T2 second_argument_type;
+  typedef R result_type;
+};
+
+template <class T>
+struct less : binary_function <T, T, bool> {
+  bool operator() (const T & x, const T & y) const {
+    return x < y;
+  }
+};
+
+}
+
+#endif

@@ -35,6 +35,8 @@
 # include <TargetConditionals.h>
 #elif defined(__linux__)
 # include <features.h>
+#elif defined(__v8sa__)
+# include <new> // no runtime
 #endif
 
 

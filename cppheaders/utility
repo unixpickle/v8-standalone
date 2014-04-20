@@ -7,4 +7,18 @@ void swap(T & a, T & b) {
   b = c;
 }
 
+template <class T1, class T2>
+struct pair {
+  typedef T1 first_type;
+  typedef T2 second_type;
+  
+  first_type first;
+  second_type second;
+  
+  pair();
+  template <class A, class B>
+  pair(const pair<A, B> & p);
+  pair(const first_type & a, const second_type & b);
+};
+
 }

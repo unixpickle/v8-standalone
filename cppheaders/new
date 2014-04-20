@@ -1,0 +1,9 @@
+#ifndef __V8SA_NEW_HPP__
+#define __V8SA_NEW_HPP__
+
+#include <cstddef>
+
+void * operator new(size_t size);
+void * operator new(size_t size, void * ptr);
+
+#endif
