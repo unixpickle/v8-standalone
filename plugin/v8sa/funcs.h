@@ -1,5 +1,5 @@
-#ifndef __V8SA_PLATFORM_FUNCS_H__
-#define __V8SA_PLATFORM_FUNCS_H__
+#ifndef __V8SA_PLUGIN_FUNCS_H__
+#define __V8SA_PLUGIN_FUNCS_H__
 
 namespace v8sa {
 

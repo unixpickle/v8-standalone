@@ -132,6 +132,41 @@ bool ConditionVariable::WaitFor(Mutex* mutex, const TimeDelta& rel_time) {
   return true;
 }
 
+#elif V8_OS_SA
+
+ConditionVariable::ConditionVariable() {
+}
+
+
+ConditionVariable::~ConditionVariable() {
+}
+
+
+void ConditionVariable::NotifyOne() {
+  native_handle_.signal();
+}
+
+
+void ConditionVariable::NotifyAll() {
+  native_handle_.broadcast();
+}
+
+
+void ConditionVariable::Wait(Mutex* mutex) {
+  mutex->AssertHeldAndUnmark();
+  native_handle_.wait(mutex->native_handle());
+  mutex->AssertUnheldAndMark();
+}
+
+
+bool ConditionVariable::WaitFor(Mutex* mutex, const TimeDelta& rel_time) {
+  mutex->AssertHeldAndUnmark();
+  bool result = native_handle_.waitFor(mutex->native_handle(),
+                                       rel_time.InMicroseconds());
+  mutex->AssertUnheldAndMark();
+  return result;
+}
+
 #elif V8_OS_WIN
 
 struct ConditionVariable::Event {

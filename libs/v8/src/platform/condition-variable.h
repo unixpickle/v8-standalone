@@ -30,6 +30,10 @@
 
 #include "platform/mutex.h"
 
+#if V8_OS_SA
+#include <v8sa/condition.h>
+#endif
+
 namespace v8 {
 namespace internal {
 
@@ -83,6 +87,8 @@ class ConditionVariable V8_FINAL {
   // The implementation-defined native handle type.
 #if V8_OS_POSIX
   typedef pthread_cond_t NativeHandle;
+#elif V8_OS_SA
+  typedef v8sa::Condition NativeHandle;
 #elif V8_OS_WIN
   struct Event;
   class NativeHandle V8_FINAL {

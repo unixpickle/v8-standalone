@@ -1,8 +1,14 @@
+#ifndef __V8SA_PLUGIN_SEMAPHORE_H__
+#define __V8SA_PLUGIN_SEMAPHORE_H__
+  
 #include <stdint.h>
 
 namespace v8sa {
 
 class Semaphore {
+private:
+  void * userData;
+  
 public:
   Semaphore(int count);
   ~Semaphore();
@@ -13,3 +19,5 @@ public:
 };
 
 }
+
+#endif
