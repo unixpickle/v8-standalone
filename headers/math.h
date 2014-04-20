@@ -1,6 +1,10 @@
 #ifndef __V8SA_MATH_H__
 #define __V8SA_MATH_H__
 
+/**
+ * Parts taken from OS X 10.9 math.h
+ */
+
 #if defined(__GNUC__)
 #   define    HUGE_VAL     __builtin_huge_val()
 #   define    HUGE_VALF    __builtin_huge_valf()
@@ -14,6 +18,12 @@
 #endif
 
 #define INFINITY    HUGE_VALF
+
+#define FP_NAN          1
+#define FP_INFINITE     2
+#define FP_ZERO         3
+#define FP_NORMAL       4
+#define FP_SUBNORMAL    5
 
 long int lrint(double x);
 long int lrintf(float x);

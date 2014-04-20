@@ -8,8 +8,10 @@ typedef struct {
 
 FILE * stdout = NULL;
 FILE * stdin = NULL;
+FILE * stderr = NULL;
 
 void printf(const char * fmt, ...);
-void fclose(FILE * fp);
+int fclose(FILE * fp);
+int fflush(FILE * fp);
 
 #endif

@@ -12,4 +12,9 @@ void * memmove(void * destination, const void * source, size_t num);
 void * memset(void * ptr, int value, size_t num);
 int strncmp(const char * str1, const char * str2, size_t num);
 
+#ifdef __cplusplus
+const char * strchr(const char * str, int character);
+char * strchr(char * str, int character);
+#endif
+
 #endif

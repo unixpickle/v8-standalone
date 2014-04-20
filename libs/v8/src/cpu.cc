@@ -36,6 +36,9 @@
 #if V8_OS_QNX
 #include <sys/syspage.h>  // cpuinfo
 #endif
+#if V8_OS_SA
+#include <v8sa/cpu.h>
+#endif
 
 #include <ctype.h>
 #include <limits.h>
@@ -497,6 +500,8 @@ int CPU::NumberOfProcessorsOnline() {
   SYSTEM_INFO info;
   GetSystemInfo(&info);
   return info.dwNumberOfProcessors;
+#elif V8_OS_SA
+  return v8sa::CPU::processorsOnline();
 #else
   return static_cast<int>(sysconf(_SC_NPROCESSORS_ONLN));
 #endif

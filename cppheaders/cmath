@@ -29,6 +29,26 @@ float ldexp(float x, int exp);
 double ldexp(double x, int exp);
 long double ldexp(long double x, int exp);
 
+bool isinf(float x);
+bool isinf(double x);
+bool isinf(long double x);
+
+float logf(float x);
+double log(double x);
+long double logl(long double x);
+
+float powf(float base, float exponent);
+double pow(double base, double exponent);
+long double powl(long double base, long double exponent);
+
+int fpclassify(float arg);
+int fpclassify(double arg);
+int fpclassify(long double arg);
+
+float fmodf(float number, float denom);
+double fmod(double number, double denom);
+long double fmodl(long double number, long double denom);
+
 }
 
 #endif
