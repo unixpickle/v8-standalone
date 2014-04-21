@@ -8,7 +8,7 @@ all:
 	export GYP_DEFINES=-Ddebuggersupport=off; \
 	export CXX=g++\ '$(CCFLAGS)'; \
 	echo CXX is $$CXX;\
-	cd libs/v8; make x64.release
+	cd libs/v8; make x64.release debuggersupport=off profilingsupport=off
 
 deps:
 	cd libs/v8 && make dependencies && cd -

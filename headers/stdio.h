@@ -19,5 +19,6 @@ int fclose(FILE * fp);
 int fflush(FILE * fp);
 size_t fwrite(const void * ptr, size_t size, size_t nitems, FILE * stream);
 int setvbuf(FILE * stream, char * buf, int type, size_t size);
+int fscanf(FILE * stream, const char * format, ...);
 
 #endif

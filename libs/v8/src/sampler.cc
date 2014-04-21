@@ -243,6 +243,13 @@ class Sampler::PlatformData : public PlatformDataCommon {
  private:
   HANDLE profiled_thread_;
 };
+
+#elif V8_OS_SA
+
+class Sampler::PlatformData : public PlatformDataCommon {
+public:
+};
+
 #endif
 
 

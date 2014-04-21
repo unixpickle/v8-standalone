@@ -83,7 +83,7 @@ class Socket V8_FINAL {
   typedef SOCKET NativeHandle;
   static const NativeHandle kInvalidNativeHandle = INVALID_SOCKET;
 #elif V8_OS_SA
-  typedef v8sa::Socket NativeHandle; 
+  typedef v8sa::Socket::Socket NativeHandle; 
   static const NativeHandle kInvalidNativeHandle = 0;
 #endif
 

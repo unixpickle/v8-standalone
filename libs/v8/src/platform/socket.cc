@@ -65,8 +65,12 @@ Socket::Socket() {
   CallOnce(&initialize_winsock, &InitializeWinsock);
 #endif  // V8_OS_WIN
 
+#if V8_OS_SA
+  native_handle_ = v8sa::Socket::create();
+#else
   // Create the native socket handle.
   native_handle_ = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+#endif
 }
 
 
@@ -74,6 +78,9 @@ bool Socket::Bind(int port) {
   ASSERT_GE(port, 0);
   ASSERT_LT(port, 65536);
   if (!IsValid()) return false;
+#if V8_OS_SA
+  return v8sa::Socket::bind(native_handle_, port);
+#else
   struct sockaddr_in sin;
   memset(&sin, 0, sizeof(sin));
   sin.sin_family = AF_INET;
@@ -82,18 +89,29 @@ bool Socket::Bind(int port) {
   int result = ::bind(
       native_handle_, reinterpret_cast<struct sockaddr*>(&sin), sizeof(sin));
   return result == 0;
+#endif
 }
 
 
 bool Socket::Listen(int backlog) {
   if (!IsValid()) return false;
+#if V8_OS_SA
+  return v8sa::Socket::listen(native_handle_, backlog);
+#else
   int result = ::listen(native_handle_, backlog);
   return result == 0;
+#endif
 }
 
 
 Socket* Socket::Accept() {
   if (!IsValid()) return NULL;
+#ifdef V8_OS_SA
+  NativeHandle h;
+  bool res = v8sa::Socket::accept(native_handle_, h);
+  if (!res) return NULL;
+  return new Socket(h);
+#else
   while (true) {
     NativeHandle native_handle = ::accept(native_handle_, NULL, NULL);
     if (native_handle == kInvalidNativeHandle) {
@@ -104,6 +122,7 @@ Socket* Socket::Accept() {
     }
     return new Socket(native_handle);
   }
+#endif // V8_OS_SA
 }
 
 
@@ -112,6 +131,9 @@ bool Socket::Connect(const char* host, const char* port) {
   ASSERT_NE(NULL, port);
   if (!IsValid()) return false;
 
+#if V8_OS_SA
+  return v8sa::Socket::connect(native_handle_, host, port);
+#else
   // Lookup host and port.
   struct addrinfo* info = NULL;
   struct addrinfo hint;
@@ -142,6 +164,7 @@ bool Socket::Connect(const char* host, const char* port) {
   }
   freeaddrinfo(info);
   return false;
+#endif // V8_OS_SA
 }
 
 
@@ -154,6 +177,8 @@ bool Socket::Shutdown() {
 #elif V8_OS_WIN
   int result = ::shutdown(native_handle_, SD_BOTH);
   ::closesocket(native_handle_);
+#elif V8_OS_SA
+  int result = !v8sa::Socket::shutdown(native_handle_);
 #endif
   native_handle_ = kInvalidNativeHandle;
   return result == 0;
@@ -165,7 +190,13 @@ int Socket::Send(const char* buffer, int length) {
   if (!IsValid()) return 0;
   int offset = 0;
   while (offset < length) {
+#if V8_OS_SA
+    int result = v8sa::Socket::write(native_handle_,
+                                     buffer + offset,
+                                     length - offset);
+#else
     int result = ::send(native_handle_, buffer + offset, length - offset, 0);
+#endif
     if (result == 0) {
       break;
     } else if (result > 0) {
@@ -187,7 +218,11 @@ int Socket::Receive(char* buffer, int length) {
   if (length <= 0) return 0;
   ASSERT_NE(NULL, buffer);
   while (true) {
+#if V8_OS_SA
+    int result = !v8sa::Socket::recv(native_handle_, buffer, length);
+#else
     int result = ::recv(native_handle_, buffer, length, 0);
+#endif
     if (result < 0) {
 #if V8_OS_POSIX
       if (errno == EINTR) continue;  // Retry after signal.
@@ -201,10 +236,14 @@ int Socket::Receive(char* buffer, int length) {
 
 bool Socket::SetReuseAddress(bool reuse_address) {
   if (!IsValid()) return 0;
+#if !V8_OS_SA
   int v = reuse_address ? 1 : 0;
   int result = ::setsockopt(native_handle_, SOL_SOCKET, SO_REUSEADDR,
                             reinterpret_cast<char*>(&v), sizeof(v));
   return result == 0;
+#else
+  return !v8sa::Socket::setReuse(native_handle_);
+#endif
 }
 
 
@@ -218,6 +257,8 @@ int Socket::GetLastError() {
 
   // Now we can safely perform WSA calls.
   return ::WSAGetLastError();
+#elif V8_OS_SA
+  return v8sa::Socket::lastError();
 #endif
 }
 

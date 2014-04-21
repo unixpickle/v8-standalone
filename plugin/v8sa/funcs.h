@@ -4,6 +4,7 @@
 namespace v8sa {
 
 void yield();
+uint8_t randomByte();
 
 }
 
