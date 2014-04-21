@@ -811,6 +811,12 @@
             ],
           }
         ],
+        ['OS=="standalone"', {
+            'sources': [
+              '../../src/platform-standalone.cc'
+            ]
+          }
+        ],
         ['OS=="android"', {
             'defines': [
               'CAN_USE_VFP_INSTRUCTIONS',
