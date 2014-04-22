@@ -9,7 +9,9 @@ CFLAGS += -Wall -ffreestanding -fno-builtin -fno-stack-protector -fno-zero-initi
 CFLAGS += $(shell echo $(INCLUDES) | sed -e 's/\([^ ]*\)/"-I\1"/g')
 export CXXFLAGS
 
-GYP_DEFINES = debuggersupport=off OS=standalone
+SA_OS = $(shell if [ `uname` == 'Darwin' ]; then echo -n mac; else echo -n other; fi)
+
+GYP_DEFINES = debuggersupport=off OS=standalone SA_OS=$(SA_OS)
 export GYP_DEFINES
 
 CXX = g++
@@ -22,6 +24,10 @@ all:
 
 deps:
 	cd libs/v8 && make dependencies && cd -
+	rm libs/v8/third_party/icu/icu.gyp
+	cp patches/icu/icu.gyp libs/v8/third_party/icu
+	cp patches/icu/platform.h libs/v8/thrid_party/icu/source/common/unicode
+	cp patches/icu/pstandalone.h libs/v8/thrid_party/icu/source/common/unicode
 
 clean:
 	cd libs/v8 && make clean
