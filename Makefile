@@ -9,18 +9,19 @@ CFLAGS += -Wall -ffreestanding -fno-builtin -fno-stack-protector -fno-zero-initi
 CFLAGS += $(shell echo $(INCLUDES) | sed -e 's/\([^ ]*\)/"-I\1"/g')
 export CXXFLAGS
 
-SA_OS = $(shell if [ `uname` == 'Darwin' ]; then echo -n mac; else echo -n other; fi)
+SA_OS = $(shell if [ `uname` == 'Darwin' ]; then echo mac; else echo other; fi)
 
-GYP_DEFINES = debuggersupport=off OS=standalone SA_OS=$(SA_OS)
+GYP_DEFINES = debuggersupport=off snapshot=off profilingsupport=off OS=standalone SA_OS=$(SA_OS)
 export GYP_DEFINES
 
 CXX = g++
 export CXX
 
 all:
+	echo "SA OS IS ****** $(SA_OS)"
 	# generate the defines and finally the CXX command to use
 	echo CXX is $$CXX; \
-	cd libs/v8; make x64.release debuggersupport=off profilingsupport=off
+	cd libs/v8; make x64.release snapshot=off debuggersupport=off profilingsupport=off
 
 deps:
 	cd libs/v8 && make dependencies && cd -
