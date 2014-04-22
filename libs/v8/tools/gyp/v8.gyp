@@ -811,10 +811,8 @@
             ],
           }
         ],
-        ['OS=="standalone"', {
-            'sources': [
-              '../../src/platform-standalone.cc'
-            ]
+        ['OS=="standalone"', { ### some day...some day
+            'sources': []
           }
         ],
         ['OS=="android"', {
